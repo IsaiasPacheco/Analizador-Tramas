@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void llc(unsigned char trama[], unsigned char num_trama);
+int llc(unsigned char trama[] );
+
+unsigned char num_trama=1;
 
 void main(void)
 {
 
-    unsigned char tramas[][100] = { {  //t1 ARP
+    unsigned char trama[][100] = { {  //t1 ARP
 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x23, 0x8b, 0x46, 0xe9, 0xad, 0x08, 0x06, 0x00, 0x10,
 0x08, 0x00, 0x06, 0x04, 0x00, 0x04, 0x00, 0x23, 0x8b, 0x46, 0xe9, 0xad, 0x94, 0xcc, 0x39, 0xcb,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x94, 0xcc, 0x39, 0xfe                                 
@@ -59,43 +61,24 @@ void main(void)
 }
 };
 
-
-    unsigned char trama[] = { //t8 T -U
-0x00, 0x02, 0xb3, 0x9c, 0xae, 0xba, 0x00, 0x02, 0xb3, 0x9c, 0xdf, 0x1b, 0x00, 0x03, 0xf0, 0xf0, 
-0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x05, 0x90, 0x6d  
-};
-    
-
     unsigned char i = 0;
-    unsigned char j = 0;
 
     for( i=0; i<8; i++){
-        unsigned char prueba[100];
-        for( j=0; j<100; j++ ){
-            prueba[j] = tramas[i][j];
-        }
-
-        llc(prueba, i+1);
-        printf("\n\n");
+        llc(trama[i]);
     }
     
     
 }
 
-void llc(unsigned char trama[] , unsigned char num_trama)
+int llc(unsigned char trama[])
 {
-
     unsigned char tam_trama = 100;
 
-    printf("\n**********    CABECERA ETHERNET    **********\nNUM TRAMA     %d", num_trama);
+    printf("\n\n\n**********    CABECERA ETHERNET    **********\nNUM TRAMA     %d", num_trama);
     printf("\nMAC DESTINO   %0.2x:%0.2x:%0.2x:%0.2x:%0.2x:%0.2x ", trama[0], trama[1], trama[2], trama[3], trama[4], trama[5]);
     printf("\nMAC ORIGEN    %0.2x:%0.2x:%0.2x:%0.2x:%0.2x:%0.2x ", trama[6], trama[7], trama[8], trama[9], trama[10], trama[11]);
 
     unsigned short int TOT = trama[12] << 8 | trama[13];
-
-    //printf("\n %0.2x - %0.2x %0.4x\n", trama[12], trama[13], TOT);
 
     if (TOT < 1500)
     {
@@ -154,4 +137,8 @@ void llc(unsigned char trama[] , unsigned char num_trama)
     }
     else
         printf("\n OTRO ");
+
+    num_trama++;
+
+    return 0;
 }
