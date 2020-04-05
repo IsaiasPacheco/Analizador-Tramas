@@ -50,6 +50,7 @@ void main(void)
                                    0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x05, 0x90, 0x6d}};
+
     unsigned char i = 0;
     printf(" \n> Pacheco Castillo Isaias < \n");
     for (i = 0; i < 8; i++)
@@ -60,7 +61,7 @@ void main(void)
 
 int llc(unsigned char trama[])
 {
-    printf("\n**********    CABECERA ETHERNET    **********\nNUM TRAMA     %d", num_trama);
+    printf("\n\n\nNUM TRAMA     %d\n**********    CABECERA ETHERNET    **********", num_trama);
     printf("\nMAC DESTINO   %0.2x:%0.2x:%0.2x:%0.2x:%0.2x:%0.2x ", trama[0], trama[1], trama[2], trama[3], trama[4], trama[5]);
     printf("\nMAC ORIGEN    %0.2x:%0.2x:%0.2x:%0.2x:%0.2x:%0.2x ", trama[6], trama[7], trama[8], trama[9], trama[10], trama[11]);
     unsigned short int TOT = trama[12] << 8 | trama[13];
@@ -74,7 +75,7 @@ int llc(unsigned char trama[])
         unsigned char uc[][6] = {"UI", "SIM", "NR0", "SART", "UP", "--", "--", "--", "DISC", "--", "NR2", "SARME", "--", "--", "--", "SABME", "SNRM", "--", "NR1", "RSET", "--", "--", "--", "XID", "--", "--", "NR3", "SNRME"};
 
         //Campo de control tramas U < Response >
-        unsigned char ur[][6] = {"UI", "RIM", "NR0", "DM", "--", "--", "--", "--", "RD", "--", "NR2", "--", "--", "--", "--", "--", "--", "FRMR", "NR1", "--", "--", "--", "--", "XID", "--", "--", "NR3", "--"};
+        unsigned char ur[][6] = {"UI", "RIM", "NR0", "DM", "--", "--", "--", "--", "RD", "--", "NR2", "--", "UA", "--", "--", "--", "--", "FRMR", "NR1", "--", "--", "--", "--", "XID", "--", "--", "NR3", "--"};
 
         switch (trama[16] & 3)
         {
